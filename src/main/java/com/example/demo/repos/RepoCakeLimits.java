@@ -9,5 +9,6 @@ import java.util.Optional;
 public interface RepoCakeLimits extends CrudRepository<CakeLimit,Long> {
 
     Optional<CakeLimit> findByDate(LocalDate date);
+    Optional<CakeLimit> findByDateAndType(LocalDate date,String type);
 
 }
