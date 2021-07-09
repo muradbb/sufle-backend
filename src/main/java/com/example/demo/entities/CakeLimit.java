@@ -64,16 +64,16 @@ public class CakeLimit {
     private boolean availability[]=new boolean[10];
 
     public CakeLimit(){
-        firstBatchLimit=5;
-        secBatchLimit=5;
-        thirdBatchLimit=5;
-        fourthBatchLimit=5;
-        fifthBatchLimit=5;
-        sixthBatchLimit=5;
-        seventhBatchLimit=10;
-        eighthBatchLimit=10;
-        ninthBatchLimit=10;
-        tenthBatchLimit=10;
+        firstBatchLimit=0;
+        secBatchLimit=0;
+        thirdBatchLimit=0;
+        fourthBatchLimit=0;
+        fifthBatchLimit=0;
+        sixthBatchLimit=0;
+        seventhBatchLimit=0;
+        eighthBatchLimit=0;
+        ninthBatchLimit=0;
+        tenthBatchLimit=0;
     }
 
     public long getId() {

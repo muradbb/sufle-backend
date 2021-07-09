@@ -8,6 +8,7 @@ import com.example.demo.models.Response;
 import com.example.demo.models.ResponsePagination;
 import com.example.demo.repos.RepoCakeLimits;
 import com.example.demo.repos.RepoRequestTime;
+import jdk.nashorn.internal.runtime.regexp.joni.ast.StringNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -45,17 +46,19 @@ public class DaoRequestTime {
     RepoCakeLimits repoCakeLimits;
 
     public Response insert(RequestTime requestTime){
-        Optional<CakeLimit> optionalCakeLimit=repoCakeLimits.findByDate(requestTime.getOrderDate());
+        Optional<CakeLimit> optionalCakeLimit=repoCakeLimits.findByDateAndType(requestTime.getOrderDate(),requestTime.getType());
+        //Optional<CakeLimit> optionalCakeLimit=repoCakeLimits.findByDate(requestTime.getOrderDate());
         if(!optionalCakeLimit.isPresent()){
-            CakeLimit cakeLimit=new CakeLimit();
-            cakeLimit.setDate(requestTime.getOrderDate());
+//            CakeLimit cakeLimit=new CakeLimit();
+//            cakeLimit.setDate(requestTime.getOrderDate());
+//            cakeLimit.setType(requestTime.getType());
             repoCakeLimits.save(
-                    cakeLimit
+                    cakeLimitInitializer(requestTime)
             );
         }
-        Optional<CakeLimit> optionalCakeLimit1=repoCakeLimits.findByDate(requestTime.getOrderDate());
-        if(optionalCakeLimit1.isPresent()){
-            CakeLimit cakeLimit=optionalCakeLimit1.get();
+        //Optional<CakeLimit> optionalCakeLimit1=repoCakeLimits.findByDateAndType(requestTime.getOrderDate(), requestTime.getType());
+        if(optionalCakeLimit.isPresent()){
+            CakeLimit cakeLimit=optionalCakeLimit.get();
             final LocalTime time1 = LocalTime.parse("10:00:00");
             final LocalTime time2 = LocalTime.parse("11:00:00");
             final LocalTime time3 = LocalTime.parse("12:00:00");
@@ -68,55 +71,55 @@ public class DaoRequestTime {
             final LocalTime time10 = LocalTime.parse("19:00:00");
             LocalTime orderTime=requestTime.getOrderTime();
             if(orderTime==time1){
-                if(cakeLimit.getFirstBatchLimit()+1>cakeLimit.getFirstBatchLimit()){
+                if(cakeLimit.getFirstBatchLimit()+requestTime.getAmount()>cakeLimit.getFirstBatchLimit()){
                     throw new LimitPassedException("Limit for the first batch has been passed");
                 }
-                cakeLimit.setFirstBatchDone(cakeLimit.getFirstBatchDone()+1);
+                cakeLimit.setFirstBatchDone(cakeLimit.getFirstBatchDone()+requestTime.getAmount());
             }else if(orderTime==time2){
-                if(cakeLimit.getSecBatchDone()+1>cakeLimit.getSecBatchLimit()){
+                if(cakeLimit.getSecBatchDone()+requestTime.getAmount()>cakeLimit.getSecBatchLimit()){
                     throw new LimitPassedException("Limit for the second batch has been passed");
                 }
-                cakeLimit.setSecBatchDone(cakeLimit.getSecBatchDone()+1);
+                cakeLimit.setSecBatchDone(cakeLimit.getSecBatchDone()+requestTime.getAmount());
             }else if(orderTime==time3){
-                if(cakeLimit.getThirdBatchDone()+1>cakeLimit.getThirdBatchLimit()){
+                if(cakeLimit.getThirdBatchDone()+requestTime.getAmount()>cakeLimit.getThirdBatchLimit()){
                     throw new LimitPassedException("Limit for the third batch has been passed");
                 }
-                cakeLimit.setThirdBatchDone(cakeLimit.getThirdBatchDone()+1);
+                cakeLimit.setThirdBatchDone(cakeLimit.getThirdBatchDone()+requestTime.getAmount());
             }else if(orderTime==time4){
-                if(cakeLimit.getFourthBatchDone()+1>cakeLimit.getFourthBatchLimit()){
+                if(cakeLimit.getFourthBatchDone()+requestTime.getAmount()>cakeLimit.getFourthBatchLimit()){
                     throw new LimitPassedException("Limit for the fourth batch has been passed");
                 }
-                cakeLimit.setFourthBatchDone(cakeLimit.getFourthBatchDone()+1);
+                cakeLimit.setFourthBatchDone(cakeLimit.getFourthBatchDone()+requestTime.getAmount());
             }else if(orderTime==time5){
-                if(cakeLimit.getFifthBatchDone()+1>cakeLimit.getFifthBatchLimit()){
+                if(cakeLimit.getFifthBatchDone()+requestTime.getAmount()>cakeLimit.getFifthBatchLimit()){
                     throw new LimitPassedException("Limit for the fifth batch has been passed");
                 }
-                cakeLimit.setFifthBatchDone(cakeLimit.getFifthBatchDone()+1);
+                cakeLimit.setFifthBatchDone(cakeLimit.getFifthBatchDone()+requestTime.getAmount());
             }else if(orderTime==time6){
-                if(cakeLimit.getSixthBatchDone()+1>cakeLimit.getSixthBatchLimit()){
+                if(cakeLimit.getSixthBatchDone()+requestTime.getAmount()>cakeLimit.getSixthBatchLimit()){
                     throw new LimitPassedException("Limit for the sixth batch has been passed");
                 }
-                cakeLimit.setSixthBatchDone(cakeLimit.getSixthBatchDone()+1);
+                cakeLimit.setSixthBatchDone(cakeLimit.getSixthBatchDone()+requestTime.getAmount());
             }else if(orderTime==time7){
-                if(cakeLimit.getSeventhBatchDone()+1>cakeLimit.getSeventhBatchLimit()){
+                if(cakeLimit.getSeventhBatchDone()+requestTime.getAmount()>cakeLimit.getSeventhBatchLimit()){
                     throw new LimitPassedException("Limit for the seventh batch has been passed");
                 }
-                cakeLimit.setSeventhBatchDone(cakeLimit.getSeventhBatchDone()+1);
+                cakeLimit.setSeventhBatchDone(cakeLimit.getSeventhBatchDone()+requestTime.getAmount());
             }else if(orderTime==time8){
-                if(cakeLimit.getEighthBatchDone()+1>cakeLimit.getEighthBatchLimit()){
+                if(cakeLimit.getEighthBatchDone()+requestTime.getAmount()>cakeLimit.getEighthBatchLimit()){
                     throw new LimitPassedException("Limit for the eighth batch has been passed");
                 }
-                cakeLimit.setEighthBatchDone(cakeLimit.getEighthBatchDone()+1);
+                cakeLimit.setEighthBatchDone(cakeLimit.getEighthBatchDone()+requestTime.getAmount());
             }else if (orderTime==time9){
-                if(cakeLimit.getNinthBatchDone()+1>cakeLimit.getNinthBatchLimit()){
+                if(cakeLimit.getNinthBatchDone()+requestTime.getAmount()>cakeLimit.getNinthBatchLimit()){
                     throw new LimitPassedException("Limit for the ninth batch has been passed");
                 }
-                cakeLimit.setNinthBatchDone(cakeLimit.getNinthBatchDone()+1);
+                cakeLimit.setNinthBatchDone(cakeLimit.getNinthBatchDone()+requestTime.getAmount());
             }else if(orderTime==time10){
-                if(cakeLimit.getTenthBatchDone()+1>cakeLimit.getTenthBatchLimit()){
+                if(cakeLimit.getTenthBatchDone()+requestTime.getAmount()>cakeLimit.getTenthBatchLimit()){
                     throw new LimitPassedException("Limit for the tenth batch has been passed");
                 }
-                cakeLimit.setTenthBatchDone(cakeLimit.getTenthBatchDone()+1);
+                cakeLimit.setTenthBatchDone(cakeLimit.getTenthBatchDone()+requestTime.getAmount());
             }
             repoCakeLimits.save(cakeLimit);
             return new Response().setResponse(
@@ -127,6 +130,118 @@ public class DaoRequestTime {
         }
         throw new RuntimeException("An error occurred");
     }
+
+    public CakeLimit cakeLimitInitializer(RequestTime requestTime){
+        String type=requestTime.getType();
+        CakeLimit cakeLimit=new CakeLimit();
+        cakeLimit.setDate(requestTime.getOrderDate());
+        cakeLimit.setType(requestTime.getType());
+        if(type.equals("tort")){
+            cakeLimit.setFirstBatchLimit(5);
+            cakeLimit.setSecBatchLimit(5);
+            cakeLimit.setThirdBatchLimit(5);
+            cakeLimit.setFourthBatchLimit(5);
+            cakeLimit.setFifthBatchLimit(5);
+            cakeLimit.setSixthBatchLimit(5);
+            cakeLimit.setSeventhBatchLimit(10);
+            cakeLimit.setEighthBatchLimit(10);
+            cakeLimit.setNinthBatchLimit(10);
+            cakeLimit.setTenthBatchLimit(10);
+        }else if(type.equals("mtort")){
+            cakeLimit.setFirstBatchLimit(2);
+            cakeLimit.setSecBatchLimit(2);
+            cakeLimit.setThirdBatchLimit(3);
+        }else if(type.equals("atort")){
+            cakeLimit.setFirstBatchLimit(8);
+            cakeLimit.setSecBatchLimit(4);
+        }else if(type.equals("qogal")){
+            cakeLimit.setFirstBatchLimit(1600);
+            cakeLimit.setSecBatchLimit(1000);
+        }else if(type.equals("sekerbura")){
+            cakeLimit.setFirstBatchLimit(1000);
+        }else if(type.equals("paxlava")){
+            cakeLimit.setFirstBatchLimit(50);
+        }else{
+            throw new WasNotFoundException("The type of baked good you requested does not exist");
+        }
+        return cakeLimit;
+    }
+
+    public CakeLimit addMTort(CakeLimit cakeLimit,RequestTime requestTime){
+        LocalTime orderTime=requestTime.getOrderTime();
+        long amount=requestTime.getAmount();
+        final LocalTime time1 = LocalTime.parse("10:00:00");
+        final LocalTime time2 = LocalTime.parse("15:00:00");
+        final LocalTime time3 = LocalTime.parse("18:00:00");
+        if(orderTime==time1){
+            if(cakeLimit.getFirstBatchDone()+amount>cakeLimit.getFirstBatchLimit()){
+                throw new LimitPassedException("Limit for the mtort has been passed for the 09:00-13:00 period");
+            }else{
+                cakeLimit.setFirstBatchDone(cakeLimit.getFirstBatchDone()+amount);
+            }
+        }else if(orderTime==time2){
+            if(cakeLimit.getSecBatchDone()+amount>cakeLimit.getSecBatchLimit()){
+                throw new LimitPassedException("Limit for the mtort has been passed for the 13:00-17:00 period");
+            }else{
+                cakeLimit.setSecBatchDone(cakeLimit.getSecBatchDone()+amount);
+            }
+        }else if(orderTime==time3){
+            if(cakeLimit.getThirdBatchDone()+amount>cakeLimit.getThirdBatchLimit()){
+                throw new LimitPassedException("Limit for the mtort has been passed for the 17:00-21:00 period");
+            }else{
+                cakeLimit.setThirdBatchDone(cakeLimit.getThirdBatchDone()+amount);
+            }
+        }
+        return cakeLimit;
+    }
+
+    public CakeLimit addAtort(CakeLimit cakeLimit,RequestTime requestTime){
+        LocalTime orderTime=requestTime.getOrderTime();
+        long amount=requestTime.getAmount();
+        final LocalTime time1 = LocalTime.parse("14:00:00");
+        final LocalTime time2 = LocalTime.parse("17:00:00");
+        if(orderTime==time1){
+            if(cakeLimit.getFirstBatchDone()+amount>cakeLimit.getFirstBatchLimit()){
+                throw new LimitPassedException("Limit for the atort has been passed for the 12:00-16:00 period");
+            }else{
+                cakeLimit.setFirstBatchDone(cakeLimit.getFirstBatchDone()+amount);
+            }
+        }else if(orderTime==time2){
+            if(cakeLimit.getSecBatchDone()+amount>cakeLimit.getSecBatchLimit()){
+                throw new LimitPassedException("Limit for the atort has been passed for the 16:00-21:00 period");
+            }else{
+                cakeLimit.setSecBatchDone(cakeLimit.getSecBatchDone()+amount);
+            }
+        }
+        return cakeLimit;
+    }
+
+    public CakeLimit addQogal(CakeLimit cakeLimit, RequestTime requestTime){
+        LocalTime orderTime=requestTime.getOrderTime();
+        long amount=requestTime.getAmount();
+        final LocalTime time1 = LocalTime.parse("11:00:00");
+        final LocalTime time2 = LocalTime.parse("15:00:00");
+        if(orderTime==time1){
+            if(cakeLimit.getFirstBatchDone()+amount>cakeLimit.getFirstBatchLimit()){
+                throw new LimitPassedException("Limit for the atort has been passed for the 12:00-16:00 period");
+            }else{
+                cakeLimit.setFirstBatchDone(cakeLimit.getFirstBatchDone()+amount);
+            }
+        }else if(orderTime==time2){
+            if(cakeLimit.getSecBatchDone()+amount>cakeLimit.getSecBatchLimit()){
+                throw new LimitPassedException("Limit for the atort has been passed for the 16:00-21:00 period");
+            }else{
+                cakeLimit.setSecBatchDone(cakeLimit.getSecBatchDone()+amount);
+            }
+        }
+        return cakeLimit;
+    }
+
+    public CakeLimit addSekerbura(CakeLimit cakeLimit,RequestTime requestTime){
+
+        return cakeLimit;
+    }
+
 
 
     public void timeChecker(List<RequestTime> list){
