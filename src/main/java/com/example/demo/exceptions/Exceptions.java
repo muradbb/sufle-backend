@@ -42,11 +42,14 @@ public class Exceptions extends Throwable{
         return map;
     }
 
-    //@ResponseBody
-    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
     @ExceptionHandler(LimitPassedException.class)
-    public LimitPassedException limitPassedExceptionHandler(LimitPassedException e){
-        return e;
+    public Map<String, Object> limitPassedExceptionHandler(LimitPassedException e) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("code", 406);
+        map.put("message", e.getMessage());
+        return map;
     }
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
