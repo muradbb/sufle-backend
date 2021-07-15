@@ -23,6 +23,11 @@ public class ApiRequestTime {
         return daoRequestTime.selectAll();
     }
 
+    @GetMapping("/selectByType")
+    public Response selectByType(@RequestParam String type){
+        return daoRequestTime.selectByType(type);
+    }
+
     @GetMapping("/selectBy")
     public Response selectBy(@RequestParam String query,
                              @RequestParam Integer limit,
