@@ -19,6 +19,7 @@ public class ApiUser {
         return daoUser.insert(user, token);
     }
 
+
     @PostMapping("/auth")
     public Response login(@RequestBody LoginRequest loginRequest){
         return daoUser.login(loginRequest);

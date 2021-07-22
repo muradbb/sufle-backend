@@ -285,6 +285,7 @@ public class DaoRequestTime {
     public Response selectAll(){
         List<RequestTime> requestTimeList=repoRequestTime.selectAll();
         timeChecker(requestTimeList);
+//        Sort.by("id").descending();
         Collections.reverse(requestTimeList);
         return new Response().setResponse(requestTimeList);
     }
