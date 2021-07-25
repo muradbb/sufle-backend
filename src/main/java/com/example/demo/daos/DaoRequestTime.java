@@ -66,11 +66,11 @@ public class DaoRequestTime {
             );
         }else{
             throw new RuntimeException("An error occurred");
-
         }
     }
 
     public CakeLimit typeDelegator(RequestTime requestTime,CakeLimit cakeLimit){
+
         String type=requestTime.getType();
         if(type.equals("tort")){
             return addTort(cakeLimit,requestTime);
@@ -83,7 +83,7 @@ public class DaoRequestTime {
         }else if(type.equals("sekerbura")){
             return addSekerbura(cakeLimit,requestTime);
         }
-        return null;
+        throw new NotFoundException("No entity with this type was found");
     }
 
     public CakeLimit cakeLimitInitializer(RequestTime requestTime){
