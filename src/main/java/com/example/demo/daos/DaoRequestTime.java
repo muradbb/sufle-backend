@@ -273,7 +273,7 @@ public class DaoRequestTime {
         LocalDate currentDate=java.time.LocalDate.now();
         LocalTime currentTime=java.time.LocalTime.now();
         for (int i = 0; i < list.size(); i++) {
-            if(list.get(i).getOrderTime().isBefore(currentTime)
+            if(!list.get(i).isItsTime() && list.get(i).getOrderTime().isBefore(currentTime)
                     && (list.get(i).getOrderDate().isBefore(currentDate) || list.get(i).getOrderDate().isEqual(currentDate))){
                 repoRequestTime.save(
                         list.get(i).setItsTime(true)
