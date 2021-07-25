@@ -48,6 +48,7 @@ public class DaoRequestTime {
 
     public Response insert(RequestTime requestTime){
         Optional<CakeLimit> optionalCakeLimit=repoCakeLimits.findByDateAndType(requestTime.getOrderDate(),requestTime.getType());
+        System.out.println(optionalCakeLimit.isPresent());
         if(!optionalCakeLimit.isPresent()){
             CakeLimit cakeLimit=cakeLimitInitializer(requestTime);
             repoCakeLimits.save(
@@ -56,6 +57,7 @@ public class DaoRequestTime {
             requestTime.setIdCakeLimit(cakeLimit.getId());
             repoRequestTime.save(requestTime);
         }
+        //TODO: these 2 conditions should probably be merged not too sure tho
         if(optionalCakeLimit.isPresent()){
             CakeLimit cakeLimit=typeDelegator(requestTime,optionalCakeLimit.get());
             repoCakeLimits.save(cakeLimit);
