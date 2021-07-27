@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Arrays;
 
 @Entity
 @Table(name = "cake_limits")
@@ -61,7 +62,7 @@ public class CakeLimit {
     private String type;
 
     @Transient
-    private boolean availability[]=new boolean[10];
+    private boolean[] availability =new boolean[10];
 
     public CakeLimit(){
         firstBatchLimit=0;
@@ -317,7 +318,8 @@ public class CakeLimit {
                 ", tenthBatchLimit=" + tenthBatchLimit +
                 ", tenthBatchDone=" + tenthBatchDone +
                 ", date=" + date +
+                ", type='" + type + '\'' +
+                ", availability=" + Arrays.toString(availability) +
                 '}';
     }
-
 }
