@@ -33,6 +33,11 @@ public class ApiCakeLimit {
         return daoCakeLimits.selectById(id);
     }
 
-
+    @GetMapping("/selectByDateAndType")
+    public Response selectByDateAndType(@RequestParam String date,@RequestParam String type){
+        DateTimeFormatter formatter=DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        LocalDate localDate=LocalDate.parse(date,formatter);
+        return daoCakeLimits.selectByDateAndType(localDate,type);
+    }
 
 }

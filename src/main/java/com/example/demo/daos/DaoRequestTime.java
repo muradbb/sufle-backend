@@ -49,16 +49,17 @@ public class DaoRequestTime {
     public Response insert(RequestTime requestTime){
         Optional<CakeLimit> optionalCakeLimit=repoCakeLimits.findByDateAndType(requestTime.getOrderDate(),requestTime.getType());
         System.out.println(optionalCakeLimit.isPresent());
-        if(!optionalCakeLimit.isPresent()){
-            CakeLimit cakeLimit=cakeLimitInitializer(requestTime);
+        if(!optionalCakeLimit.isPresent()) {
+            CakeLimit cakeLimit = cakeLimitInitializer(requestTime);
+            cakeLimit=typeDelegator(requestTime,cakeLimit);
+           // System.out.println(cakeLimit);
             repoCakeLimits.save(
                     cakeLimit
             );
             requestTime.setIdCakeLimit(cakeLimit.getId());
-            repoRequestTime.save(requestTime);
+            return new Response().setResponse(repoRequestTime.save(requestTime));
         }
-        //TODO: these 2 conditions should probably be merged not too sure tho
-        if(optionalCakeLimit.isPresent()){
+//        else if(optionalCakeLimit.isPresent()){
             CakeLimit cakeLimit=typeDelegator(requestTime,optionalCakeLimit.get());
             repoCakeLimits.save(cakeLimit);
             return new Response().setResponse(
@@ -66,9 +67,9 @@ public class DaoRequestTime {
                         .setIdCakeLimit(cakeLimit.getId())
                     )
             );
-        }else{
-            throw new RuntimeException("An error occurred");
-        }
+//        }else{
+//            throw new RuntimeException("An error occurred");
+//        }
     }
 
     public CakeLimit typeDelegator(RequestTime requestTime,CakeLimit cakeLimit){

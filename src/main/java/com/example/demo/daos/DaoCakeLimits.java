@@ -92,6 +92,16 @@ public class DaoCakeLimits {
         throw new WasNotFoundException("No item was found for this date");
     }
 
+    public Response selectByDateAndType(LocalDate date,String type){
+        Optional<CakeLimit> optionalCakeLimit=repoCakeLimits.findByDateAndType(date,type);
+        if(optionalCakeLimit.isPresent()){
+            CakeLimit cakeLimit= optionalCakeLimit.get();
+            cakeLimit.setAvailability(avalCheck(cakeLimit.getId()));
+            return new Response().setResponse(cakeLimit);
+        }
+        throw new WasNotFoundException("No item was found for this date and type");
+    }
+
 
 
 }
