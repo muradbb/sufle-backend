@@ -48,7 +48,7 @@ public class DaoRequestTime {
 
     public Response insert(RequestTime requestTime){
         Optional<CakeLimit> optionalCakeLimit=repoCakeLimits.findByDateAndType(requestTime.getOrderDate(),requestTime.getType());
-        System.out.println(optionalCakeLimit.isPresent());
+//        System.out.println(optionalCakeLimit.isPresent());
         if(!optionalCakeLimit.isPresent()) {
             CakeLimit cakeLimit = cakeLimitInitializer(requestTime);
             cakeLimit=typeDelegator(requestTime,cakeLimit);
