@@ -67,7 +67,10 @@ public class EncryptUtil {
 
     public static void main(String[] args) throws IOException {
         EncryptUtil pass=new EncryptUtil();
+//        Double a=45.0;
+//        Double b=22.0;
         System.out.println(pass.encrypt("tyemma"));
+//        System.out.println(a-b);
     }
 
 

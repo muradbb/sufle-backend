@@ -95,7 +95,7 @@ public class DaoCakeLimits {
     public Response selectByDateAndType(LocalDate date,String type){
         Optional<CakeLimit> optionalCakeLimit=repoCakeLimits.findByDateAndType(date,type);
         if(optionalCakeLimit.isPresent()){
-            CakeLimit cakeLimit= optionalCakeLimit.get();
+            CakeLimit cakeLimit=optionalCakeLimit.get();
             cakeLimit.setAvailability(avalCheck(cakeLimit.getId()));
             return new Response().setResponse(cakeLimit);
         }
