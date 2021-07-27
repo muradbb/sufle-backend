@@ -40,6 +40,8 @@ public class RequestTime {
     private long amount;
     @Column
     private String type;
+    @Column(columnDefinition = "TINYINT(1)")
+    private boolean archived;
 
 //TODO: decide to chnage the whole class so all the different types of stuff can be used here or to make different entities
 //TODO: for each of the stuff. but changing the class itself is better
@@ -155,6 +157,33 @@ public class RequestTime {
         return this;
     }
 
+    public boolean isArchived() {
+        return archived;
+    }
+
+    public RequestTime setArchived(boolean archived) {
+        this.archived = archived;
+        return this;
+    }
+
+    @Override
+    public String toString() {
+        return "RequestTime{" +
+                "id=" + id +
+                ", idCakeLimit=" + idCakeLimit +
+                ", name='" + name + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", orderCode='" + orderCode + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", orderDate=" + orderDate +
+                ", orderTime=" + orderTime +
+                ", notes='" + notes + '\'' +
+                ", itsTime=" + itsTime +
+                ", amount=" + amount +
+                ", type='" + type + '\'' +
+                ", archived=" + archived +
+                '}';
+    }
 
 //    Sifarişçi adı
 //    Sifarişçi soyadı
