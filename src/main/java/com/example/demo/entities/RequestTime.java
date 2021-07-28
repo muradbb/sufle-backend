@@ -48,6 +48,7 @@ public class RequestTime {
 
     public RequestTime(){
         itsTime=false;
+        archived=false;
     }
 
     public long getIdCakeLimit() {
