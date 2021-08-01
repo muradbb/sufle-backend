@@ -9,7 +9,6 @@ import com.example.demo.models.Response;
 import com.example.demo.models.ResponsePagination;
 import com.example.demo.repos.RepoCakeLimits;
 import com.example.demo.repos.RepoRequestTime;
-import jdk.nashorn.internal.runtime.regexp.joni.ast.StringNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -187,7 +186,7 @@ public class DaoRequestTime {
 
     public CakeLimit addMTort(CakeLimit cakeLimit, RequestTime requestTime) {
         LocalTime orderTime = requestTime.getOrderTime();
-        long amount = requestTime.getAmount();
+        double amount = requestTime.getAmount();
         final LocalTime time1 = LocalTime.parse("10:00:00");
         final LocalTime time2 = LocalTime.parse("15:00:00");
         final LocalTime time3 = LocalTime.parse("18:00:00");
@@ -215,7 +214,7 @@ public class DaoRequestTime {
 
     public CakeLimit addAtort(CakeLimit cakeLimit, RequestTime requestTime) {
         LocalTime orderTime = requestTime.getOrderTime();
-        long amount = requestTime.getAmount();
+        double amount = requestTime.getAmount();
         final LocalTime time1 = LocalTime.parse("14:00:00");
         final LocalTime time2 = LocalTime.parse("17:00:00");
         if (orderTime == time1) {
@@ -236,7 +235,7 @@ public class DaoRequestTime {
 
     public CakeLimit addQogal(CakeLimit cakeLimit, RequestTime requestTime) {
         LocalTime orderTime = requestTime.getOrderTime();
-        long amount = requestTime.getAmount();
+        double amount = requestTime.getAmount();
         final LocalTime time1 = LocalTime.parse("11:00:00");
         final LocalTime time2 = LocalTime.parse("15:00:00");
         if (orderTime == time1) {
@@ -256,7 +255,7 @@ public class DaoRequestTime {
     }
 
     public CakeLimit addSekerbura(CakeLimit cakeLimit, RequestTime requestTime) {
-        long amount = requestTime.getAmount();
+        double amount = requestTime.getAmount();
         if (cakeLimit.getFirstBatchDone() + amount > cakeLimit.getFirstBatchLimit()) {
             throw new LimitPassedException("Limit for sekerbura for today has been passed");
         }
@@ -268,13 +267,17 @@ public class DaoRequestTime {
     public void timeChecker(List<RequestTime> list) {
         LocalDate currentDate = java.time.LocalDate.now();
         LocalTime currentTime = java.time.LocalTime.now();
-        for (int i = 0; i < list.size(); i++) {
-            if (!list.get(i).isItsTime() && list.get(i).getOrderTime().isBefore(currentTime)
-                    && (list.get(i).getOrderDate().isBefore(currentDate) || list.get(i).getOrderDate().isEqual(currentDate))) {
-                repoRequestTime.save(
-                        list.get(i).setItsTime(true)
-                );
+        try {
+            for (int i = 0; i < list.size(); i++) {
+                if (!list.get(i).isItsTime() && list.get(i).getOrderTime().isBefore(currentTime)
+                        && (list.get(i).getOrderDate().isBefore(currentDate) || list.get(i).getOrderDate().isEqual(currentDate))) {
+                    repoRequestTime.save(
+                            list.get(i).setItsTime(true)
+                    );
+                }
             }
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 

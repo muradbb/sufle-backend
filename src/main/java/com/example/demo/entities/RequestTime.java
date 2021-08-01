@@ -37,14 +37,12 @@ public class RequestTime {
     @Column(nullable = false,columnDefinition = "TINYINT(1)")
     private boolean itsTime;
     @Column
-    private long amount;
+    private double amount;
     @Column
     private String type;
     @Column(columnDefinition = "TINYINT(1)")
     private boolean archived;
 
-//TODO: decide to chnage the whole class so all the different types of stuff can be used here or to make different entities
-//TODO: for each of the stuff. but changing the class itself is better
 
     public RequestTime(){
         itsTime=false;
@@ -140,11 +138,11 @@ public class RequestTime {
         return this;
     }
 
-    public long getAmount() {
+    public double getAmount() {
         return amount;
     }
 
-    public RequestTime setAmount(long amount) {
+    public RequestTime setAmount(double amount) {
         this.amount = amount;
         return this;
     }
