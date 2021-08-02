@@ -78,6 +78,8 @@ public class DaoRequestTime {
             return addQogal(cakeLimit, requestTime);
         } else if (type.equals("sekerbura")) {
             return addSekerbura(cakeLimit, requestTime);
+        }else if(type.equals("paxlava")){
+            return addPaxlava(cakeLimit,requestTime);
         }
         throw new NotFoundException("No entity with this type was found");
     }
@@ -258,6 +260,15 @@ public class DaoRequestTime {
         double amount = requestTime.getAmount();
         if (cakeLimit.getFirstBatchDone() + amount > cakeLimit.getFirstBatchLimit()) {
             throw new LimitPassedException("Limit for sekerbura for today has been passed");
+        }
+        cakeLimit.setFirstBatchDone(cakeLimit.getFirstBatchDone() + amount);
+        return cakeLimit;
+    }
+
+    public CakeLimit addPaxlava(CakeLimit cakeLimit,RequestTime requestTime){
+        double amount = requestTime.getAmount();
+        if (cakeLimit.getFirstBatchDone() + amount > cakeLimit.getFirstBatchLimit()) {
+            throw new LimitPassedException("Limit for paxlava for today has been passed");
         }
         cakeLimit.setFirstBatchDone(cakeLimit.getFirstBatchDone() + amount);
         return cakeLimit;
