@@ -238,7 +238,7 @@ public class DaoRequestTime {
     public CakeLimit addQogal(CakeLimit cakeLimit, RequestTime requestTime) {
         LocalTime orderTime = requestTime.getOrderTime();
         double amount = requestTime.getAmount();
-        final LocalTime time1 = LocalTime.parse("11:00:00");
+        final LocalTime time1 = LocalTime.parse("10:00:00");
         final LocalTime time2 = LocalTime.parse("15:00:00");
         if (orderTime == time1) {
             if (cakeLimit.getFirstBatchDone() + amount > cakeLimit.getFirstBatchLimit()) {
