@@ -102,11 +102,11 @@ public class DaoRequestTime {
             cakeLimit.setTenthBatchLimit(10);
         } else if (type.equals("mtort")) {
             cakeLimit.setFirstBatchLimit(2);
-            cakeLimit.setSecBatchLimit(2);
+            cakeLimit.setSecBatchLimit(3);
             cakeLimit.setThirdBatchLimit(3);
         } else if (type.equals("atort")) {
             cakeLimit.setFirstBatchLimit(8);
-            cakeLimit.setSecBatchLimit(4);
+            cakeLimit.setSecBatchLimit(7);
         } else if (type.equals("qogal")) {
             cakeLimit.setFirstBatchLimit(1600);
             cakeLimit.setSecBatchLimit(1000);
