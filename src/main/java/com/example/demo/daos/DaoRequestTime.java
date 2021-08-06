@@ -293,10 +293,21 @@ public class DaoRequestTime {
     }
 
     public Response selectAll() {
-        List<RequestTime> requestTimeList = repoRequestTime.selectAll();
-        timeChecker(requestTimeList);
-        Collections.reverse(requestTimeList);
-        return new Response().setResponse(requestTimeList);
+        if(repoRequestTime.findByArchived(false).size()>0){
+            List<RequestTime> requestTimeList = repoRequestTime.findByArchived(false);
+            timeChecker(requestTimeList);
+            Collections.reverse(requestTimeList);
+            return new Response().setResponse(requestTimeList);
+        }
+        throw new NotFoundException("No entries was found");
+    }
+    public Response selectAllArchived(){
+        if(repoRequestTime.findByArchived(true).size()>0){
+            List<RequestTime> requestTimeList=repoRequestTime.findByArchived(true);
+            Collections.reverse(requestTimeList);
+            return new Response().setResponse(requestTimeList);
+        }
+        throw new NotFoundException("No archived entries was found");
     }
 
     public Response selectByType(String type) {

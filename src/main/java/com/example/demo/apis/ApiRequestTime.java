@@ -23,6 +23,9 @@ public class ApiRequestTime {
         return daoRequestTime.selectAll();
     }
 
+    @GetMapping("/selectArchived")
+    public Response selectArchived(){return daoRequestTime.selectAllArchived();}
+
     @GetMapping("/selectByType")
     public Response selectByType(@RequestParam String type){
         return daoRequestTime.selectByType(type);

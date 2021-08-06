@@ -18,4 +18,6 @@ public interface RepoRequestTime extends CrudRepository<RequestTime,Long> {
     Page<RequestTime> findAllByQuery(String text, Pageable pageable);
 
     Optional<RequestTime> findAllByType(String type);
+
+    List<RequestTime> findByArchived(boolean archived);
 }
