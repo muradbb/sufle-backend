@@ -189,7 +189,7 @@ public class DaoRequestTime {
     public CakeLimit addMTort(CakeLimit cakeLimit, RequestTime requestTime) {
         LocalTime orderTime = requestTime.getOrderTime();
         double amount = requestTime.getAmount();
-        final LocalTime time1 = LocalTime.parse("10:00:00");
+        final LocalTime time1 = LocalTime.parse("13:00:00");
         final LocalTime time2 = LocalTime.parse("15:00:00");
         final LocalTime time3 = LocalTime.parse("18:00:00");
         if (orderTime == time1) {
