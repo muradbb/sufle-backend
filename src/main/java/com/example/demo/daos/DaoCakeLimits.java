@@ -33,40 +33,73 @@ public class DaoCakeLimits {
 
     public boolean[] avalCheck(long id){
         Optional<CakeLimit> optionalCakeLimit=repoCakeLimits.findById(id);
-        boolean[] avals=new boolean[10];
         if(optionalCakeLimit.isPresent()){
-            CakeLimit cakeLimit= optionalCakeLimit.get();
-            if(cakeLimit.getFirstBatchLimit()==cakeLimit.getFirstBatchDone()){
-                avals[0]=true;
+            if(optionalCakeLimit.get().getType().equals("tort")){
+                boolean[] avals=new boolean[9];
+                CakeLimit cakeLimit= optionalCakeLimit.get();
+                if(cakeLimit.getSecBatchLimit()==cakeLimit.getSecBatchDone()){
+                    avals[0]=true;
+                }
+                if(cakeLimit.getThirdBatchLimit()==cakeLimit.getThirdBatchDone()){
+                    avals[1]=true;
+                }
+                if(cakeLimit.getFourthBatchLimit()==cakeLimit.getFourthBatchDone()){
+                    avals[2]=true;
+                }
+                if(cakeLimit.getFifthBatchLimit()==cakeLimit.getFifthBatchDone()){
+                    avals[3]=true;
+                }
+                if(cakeLimit.getSixthBatchLimit()==cakeLimit.getSixthBatchDone()){
+                    avals[4]=true;
+                }
+                if(cakeLimit.getSeventhBatchLimit()==cakeLimit.getSeventhBatchDone()){
+                    avals[5]=true;
+                }
+                if(cakeLimit.getEighthBatchLimit()==cakeLimit.getEighthBatchDone()){
+                    avals[6]=true;
+                }
+                if(cakeLimit.getNinthBatchLimit()==cakeLimit.getNinthBatchDone()){
+                    avals[7]=true;
+                }
+                if(cakeLimit.getTenthBatchLimit()==cakeLimit.getTenthBatchDone()){
+                    avals[8]=true;
+                }
+                return avals;
+            }else{
+                boolean[] avals=new boolean[10];
+                CakeLimit cakeLimit= optionalCakeLimit.get();
+                if(cakeLimit.getFirstBatchLimit()==cakeLimit.getFirstBatchDone()){
+                    avals[0]=true;
+                }
+                if(cakeLimit.getSecBatchLimit()==cakeLimit.getSecBatchDone()){
+                    avals[1]=true;
+                }
+                if(cakeLimit.getThirdBatchLimit()==cakeLimit.getThirdBatchDone()){
+                    avals[2]=true;
+                }
+                if(cakeLimit.getFourthBatchLimit()==cakeLimit.getFourthBatchDone()){
+                    avals[3]=true;
+                }
+                if(cakeLimit.getFifthBatchLimit()==cakeLimit.getFifthBatchDone()){
+                    avals[4]=true;
+                }
+                if(cakeLimit.getSixthBatchLimit()==cakeLimit.getSixthBatchDone()){
+                    avals[5]=true;
+                }
+                if(cakeLimit.getSeventhBatchLimit()==cakeLimit.getSeventhBatchDone()){
+                    avals[6]=true;
+                }
+                if(cakeLimit.getEighthBatchLimit()==cakeLimit.getEighthBatchDone()){
+                    avals[7]=true;
+                }
+                if(cakeLimit.getNinthBatchLimit()==cakeLimit.getNinthBatchDone()){
+                    avals[8]=true;
+                }
+                if(cakeLimit.getTenthBatchLimit()==cakeLimit.getTenthBatchDone()){
+                    avals[9]=true;
+                }
+                return avals;
             }
-            if(cakeLimit.getSecBatchLimit()==cakeLimit.getSecBatchDone()){
-                avals[1]=true;
-            }
-            if(cakeLimit.getThirdBatchLimit()==cakeLimit.getThirdBatchDone()){
-                avals[2]=true;
-            }
-            if(cakeLimit.getFourthBatchLimit()==cakeLimit.getFourthBatchDone()){
-                avals[3]=true;
-            }
-            if(cakeLimit.getFifthBatchLimit()==cakeLimit.getFifthBatchDone()){
-                avals[4]=true;
-            }
-            if(cakeLimit.getSixthBatchLimit()==cakeLimit.getSixthBatchDone()){
-                avals[5]=true;
-            }
-            if(cakeLimit.getSeventhBatchLimit()==cakeLimit.getSeventhBatchDone()){
-                avals[6]=true;
-            }
-            if(cakeLimit.getEighthBatchLimit()==cakeLimit.getEighthBatchDone()){
-                avals[7]=true;
-            }
-            if(cakeLimit.getNinthBatchLimit()==cakeLimit.getNinthBatchDone()){
-                avals[8]=true;
-            }
-            if(cakeLimit.getTenthBatchLimit()==cakeLimit.getTenthBatchDone()){
-                avals[9]=true;
-            }
-            return avals;
         }
         throw new NotFoundException("No cake limit was found with this id");
     }
