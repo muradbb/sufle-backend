@@ -280,11 +280,10 @@ public class DaoRequestTime {
         LocalTime currentTime = java.time.LocalTime.now();
         try {
             for (int i = 0; i < list.size(); i++) {
-                if (!list.get(i).isItsTime() && list.get(i).getOrderTime().isBefore(currentTime)
-                        && (list.get(i).getOrderDate().isBefore(currentDate) || list.get(i).getOrderDate().isEqual(currentDate))) {
-                    repoRequestTime.save(
-                            list.get(i).setItsTime(true)
-                    );
+                if(!list.get(i).isItsTime() && (list.get(i).getOrderDate().isBefore(currentDate))){
+                    repoRequestTime.save(list.get(i).setItsTime(true));
+                }else if(list.get(i).getOrderDate().isEqual(currentDate) && list.get(i).getOrderTime().isBefore(currentTime) ){
+                    repoRequestTime.save(list.get(i).setItsTime(true));
                 }
             }
         }catch (Exception e){
